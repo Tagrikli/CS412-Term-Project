@@ -24,5 +24,7 @@ The classification task aims to develop a model that can accurately categorize I
 - Egi Cekici ([@egi-c](https://github.com/egi-c))
 - Tugrul Agrikli ([@tagrikli](https://github.com/Tagrikli))
 
+---
 
-> It was nice to work with you all, it was quite a long and tiring journey but it is finally over and we can rest now. Thank you very much for all of your contributions, as well as supportive and friendly attitude. I might not come so far without your help - Tugrul
+
+> It was nice to work with you all. It was quite a long and tiring journey, but it is finally over and we can rest now. Thank you very much for all of your contributions, as well as your supportive and friendly attitudes. I might not have come this far without your help. - Tugrul
