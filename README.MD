@@ -3,7 +3,7 @@
 Sabanci University, 2024-2025 Fall.  
 Machine Learning (CS 412) Course Term Project.
 
-![](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExcHZibHZkOGU0d2ptMGh6MDcxMzRmNzZhaTZnNm91aGpwNXowb3FoayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/gW0cPZopjtpoA/giphy.webp)
+![](Media/washing-machine-trampoline.gif)
 
 ## Goal
 
