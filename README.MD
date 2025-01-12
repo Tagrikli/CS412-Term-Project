@@ -3,6 +3,8 @@
 Sabanci University, 2024-2025 Fall.  
 Machine Learning (CS 412) Course Term Project.
 
+![](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExcHZibHZkOGU0d2ptMGh6MDcxMzRmNzZhaTZnNm91aGpwNXowb3FoayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/gW0cPZopjtpoA/giphy.webp)
+
 ## Goal
 
 This machine learning project addresses classification and regression tasks in Instagram data analysis, utilizing a dataset of 5,415 Instagram accounts, including detailed account profiles and metrics from 35 posts per account.
@@ -31,3 +33,4 @@ The classification task aims to develop a model that can accurately categorize I
 
 
 > It was nice to work with you all. It was quite a long and tiring journey, but it is finally over and we can rest now. Thank you very much for all of your contributions, as well as your supportive and friendly attitudes. I might not have come this far without your help. - Tugrul
+
