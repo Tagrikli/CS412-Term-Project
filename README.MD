@@ -29,113 +29,114 @@ The project leverages the rich feature set available in the dataset, including a
 
 # Regression
 
-The regression task focuses on predicting the like count for individual Instagram posts, using both account characteristics and post-specific information such as captions and media type. The model's performance will be evaluated using Mean Squared Error (MSE) on log-transformed like counts (log10).
+The regression task focuses on predicting the like count for individual Instagram posts, using both account characteristics and post-specific information. The model implementation uses separate training paths for verified and non-verified accounts to better handle the distinct engagement patterns of these user types.
 
 ## Dataset Processing and Feature Engineering
 
 ### Data Cleaning Steps
-1. Removed rows containing null values
-2. Handled missing values in comments_count and like_count
-3. Filtered out users with fewer than 3 posts
-4. Processed categorical data and encoded binary features
-5. Removed unnecessary identification fields
+1. Removed unnecessary columns (timestamp, username, category_name)
+2. Dropped median-based features to reduce redundancy
+3. Encoded binary categorical features
+4. Applied outlier detection and imputation
+5. Split data into verified and non-verified sets
 
 ### Feature Engineering
-We developed several types of features:
 
-1. **Temporal Features**
-   - Day of week
-   - Month
-   - Year
-   - Hour
-   - Holiday flag (Turkish holidays)
+1. **Binary Features**
+   - is_verified
+   - is_business_account
+   - is_holiday
+   - is_professional_account
+   - is_lottery
+   - media_type_VIDEO
 
-2. **Text-Based Features**
-   - Caption length
-   - Hashtag presence
-   - Tag presence
-   - Emoji sentiment analysis
-   - TF-IDF features for captions (300 features)
-   - TF-IDF features for hashtags (100 features)
+2. **Engineered Ratios**
+   - mean_max_likes_ratio: mean_likes / max_likes
+   - comments_per_follower: comments_count / follower_count
+   - t_1_to_mean_likes: t_1_likes / mean_likes
+   - t_1_to_follower: t_1_likes / follower_count
+   - comment_to_post: comments_count / post_count
+   - t_1_t_2: Interaction between consecutive post likes
 
-3. **Engagement Features**
-   - Like-to-comment ratios
-   - Historical engagement statistics
-   - Media type performance metrics
+3. **Statistical Features**
+   - Historical engagement metrics
+   - Account-level statistics
+   - Temporal sequence features (t_1 through t_33)
 
-4. **Lagged Features**
-   - Previous post performance metrics
-   - Rolling statistics (mean, median, max, min)
-   - Media type-specific statistics
-   - Time-based features (t-1 to t-33 posts)
+### Outlier Management
 
-### Special Handling
-
-1. **Lottery Post Detection**
-   - Identified promotional posts using Turkish keywords
-   - Adjusted engagement metrics for lottery posts
-   - Applied statistical corrections for outlier engagement
-
-2. **Outlier Management**
-   - Implemented IQR-based outlier detection
-   - Applied separate handling for verified accounts
-   - Used dynamic thresholding based on account size
+Implemented IQR-based outlier imputation with:
+- 1st and 99th percentile boundaries
+- 1.5 IQR multiplier
+- Separate handling for verified and non-verified accounts
+- Option to toggle outlier imputation
 
 ## Model Development
 
-### Data Preprocessing
-1. Applied log transformation to handle skewed distributions
-2. Normalized numerical features using MinMax scaling
-3. Encoded categorical variables
-4. Created train-test split (76%-24%)
+### Data Split Strategy
+- Separate models for verified and non-verified accounts
+- 76%-24% train-test split
+- Random state 15 for reproducibility
 
-### Model Selection
-We evaluated several regression models:
-1. Linear Regression (baseline)
-2. XGBoost
-3. LightGBM
-4. CatBoost
+### Model Selection and Optimization
 
-### Final Implementation
-The best performing configuration was:
-- Model: XGBoost Regressor
-- Objective: reg:gamma
-- Parameters:
-  - learning_rate: 0.1
-  - max_depth: 7
-  - n_estimators: 200
-  - subsample: 0.8
+Used XGBoost with Optuna hyperparameter optimization:
+- Learning rate range: 0.01 to 0.3
+- Max depth range: 3 to 10
+- N estimators range: 100 to 500
+- Subsample range: 0.6 to 1.0
+- Optimization metric: MAE
+- Additional regularization parameters (alpha and lambda)
 
-### Performance Metrics
-- Train MAE: 2538.01
-- Test MAE: 2769.30
-- Train Log MAE: 0.37
-- Test Log MAE: 0.40
+### Implementation Details
 
-## Key Findings
+1. **Base Configuration**
+   - Objective: reg:gamma
+   - Evaluation metric: MAE
+   - Seed: 8
+   - Non-negative prediction enforcement
 
-1. **Feature Importance**
-   - Historical engagement metrics were the strongest predictors
-   - Account-level features showed moderate importance
-   - Temporal features provided incremental improvements
+2. **Hyperparameter Tuning**
+   - 10 optimization trials per model
+   - Separate optimization for verified/non-verified models
+   - Early stopping on validation set
 
-2. **Model Behavior**
-   - Better performance on accounts with consistent engagement
-   - Larger prediction errors for viral posts and outlier engagement
-   - Improved accuracy when considering media type-specific patterns
+3. **Model Persistence**
+   - Saved separate models for verified and non-verified users
+   - Stored predictions for analysis
+   - Feature importance tracking
 
-3. **Limitations**
-   - Higher error rates for celebrity accounts (top 0.1%)
-   - Challenge in predicting viral content
-   - Temporal drift in prediction accuracy
+## Performance Analysis
 
-## Implementation Details
+The model's performance is tracked separately for verified and non-verified accounts:
+- Train and Test MAE for each user category
+- Feature importance rankings
+- Prediction distribution analysis
 
-The implementation includes:
-- Automated feature generation pipeline
-- Robust error handling for missing data
-- Model persistence for deployment
-- Prediction post-processing for result optimization
+## Implementation Highlights
+
+1. **Dual-Path Training**
+   - Separate optimization for different account types
+   - Custom feature importance analysis per model
+   - Independent prediction paths
+
+2. **Robust Processing**
+   - Configurable outlier handling
+   - Comprehensive feature engineering
+   - Scalable prediction pipeline
+
+3. **Output Generation**
+   - CSV files for predictions
+   - Serialized model storage
+   - Detailed performance metrics
+
+## Model Usage
+
+The implementation provides:
+- Separate model files for verified/non-verified prediction
+- Feature preprocessing pipelines
+- Prediction post-processing functions
+- Performance analysis tools
 
 
 # Classification
