@@ -145,7 +145,7 @@ The classification task aims to develop a model that can accurately categorize I
 
 ## Dataset Cleaning and Preparation
 
-The project began with `train-classification.csv`, which contained paired `username` and `category` data for model training. The dataset included both classification and regression data, with each row containing profile and post information for a single account.
+The project began with `train-classification.csv`, which contained paired `username` and `category` data for model training. The `training-dataset.jsonl` dataset included data for both classification and regression data, with each row containing profile and post information for a single account.
 
 ### Data Processing Steps:
 1. Cleaned and processed categories
@@ -157,15 +157,15 @@ We analyzed the data distribution to check for class imbalance. While some imbal
 
 ### Field Selection
 The profile data contained numerous fields, including:
-- Useful predictive fields: `biography`, `is_verified`, `fbid`
-- Instagram identification fields (removed as irrelevant to classification)
+- Potentionally predictive fields such as `biography`, `is_verified`, etc.
+- Instagram identification fields such as `fbid` (removed as irrelevant to classification)
 
-We conducted chi-square tests and calculated Cramer's V values to assess field independence. Based on this evaluation, we selected the following fields as most predictive:
+We conducted chi-square tests and calculated Cramer's V values to assess field independence. Based on this evaluation, we eliminated most of the fields and fields left were:
 - From profile information: `biography` and `category_enum`
 - From post information: `caption`
 
 ### Final Datasets
-We generated two distinct datasets:
+We generated two distinct datasets for ease of use:
 1. Account Information Dataset
    - Fields: `username`, `biography`, `category_enum`
 2. Post Information Dataset
@@ -220,7 +220,7 @@ We evaluated several machine learning models:
 5. XGBoost
 
 ### Results
-While complete accuracy metrics weren't preserved for all models, we retained results for XGBoost and Random Forest models
+While complete accuracy metrics weren't preserved for all models, we retained results for XGBoost and Random Forest models for each model and settings.
 
 ![](Media/model-results.png).
 
