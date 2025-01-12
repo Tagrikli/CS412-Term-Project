@@ -1,4 +1,7 @@
-# [2024-2025 Fall] Machine Learning (CS 412) Term Project
+# Machine Learning (CS 412) Term Project
+
+Sabanci University, 2024-2025 Fall.  
+Machine Learning (CS 412) Course Term Project.
 
 ## Goal
 
