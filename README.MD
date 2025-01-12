@@ -5,7 +5,20 @@ Machine Learning (CS 412) Course Term Project.
 
 ![](Media/washing-machine-trampoline.gif)
 
-## Goal
+## Team Members
+
+- Tasnylu Akhmetova ([@tansylu](https://github.com/tansylu))
+- Egi Cekici ([@egi-c](https://github.com/egi-c))
+- Tugrul Agrikli ([@tagrikli](https://github.com/Tagrikli))
+
+---
+
+
+> It was nice to work with you all. It was quite a long and tiring journey, but it is finally over and we can rest now. Thank you very much for all of your contributions, as well as your supportive and friendly attitudes. I might not have come this far without your help. `Tugrul`
+
+
+
+## Project Goal
 
 This machine learning project addresses classification and regression tasks in Instagram data analysis, utilizing a dataset of 5,415 Instagram accounts, including detailed account profiles and metrics from 35 posts per account.
 
@@ -22,15 +35,4 @@ The regression task focuses on predicting the like count for individual Instagra
 
 The classification task aims to develop a model that can accurately categorize Instagram accounts into 10 distinct categories: entertainment, food, travel, health and lifestyle, mom and children, fashion, tech, sports, art, and gaming. This model will be trained on a labeled subset of 2,743 accounts and evaluated using accuracy metrics.
 
-
-## Team Members
-
-- Tasnylu Akhmetova ([@tansylu](https://github.com/tansylu))
-- Egi Cekici ([@egi-c](https://github.com/egi-c))
-- Tugrul Agrikli ([@tagrikli](https://github.com/Tagrikli))
-
----
-
-
-> It was nice to work with you all. It was quite a long and tiring journey, but it is finally over and we can rest now. Thank you very much for all of your contributions, as well as your supportive and friendly attitudes. I might not have come this far without your help. `Tugrul`
 
