@@ -27,7 +27,7 @@ Both models will undergo a three-round evaluation process, where performance is 
 The project leverages the rich feature set available in the dataset, including account biographical information, follower metrics, and historical post data, to create robust and accurate prediction models. The project allows for exploration and comparison of different machine learning algorithms to determine the most effective approach for each task.
 
 
-## Regression
+# Regression
 
 The regression task focuses on predicting the like count for individual Instagram posts, using both account characteristics and post-specific information such as captions and media type. The model's performance will be evaluated using Mean Squared Error (MSE) on log-transformed like counts (log10).
 
