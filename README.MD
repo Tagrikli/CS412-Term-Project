@@ -31,6 +31,113 @@ The project leverages the rich feature set available in the dataset, including a
 
 The regression task focuses on predicting the like count for individual Instagram posts, using both account characteristics and post-specific information such as captions and media type. The model's performance will be evaluated using Mean Squared Error (MSE) on log-transformed like counts (log10).
 
+## Dataset Processing and Feature Engineering
+
+### Data Cleaning Steps
+1. Removed rows containing null values
+2. Handled missing values in comments_count and like_count
+3. Filtered out users with fewer than 3 posts
+4. Processed categorical data and encoded binary features
+5. Removed unnecessary identification fields
+
+### Feature Engineering
+We developed several types of features:
+
+1. **Temporal Features**
+   - Day of week
+   - Month
+   - Year
+   - Hour
+   - Holiday flag (Turkish holidays)
+
+2. **Text-Based Features**
+   - Caption length
+   - Hashtag presence
+   - Tag presence
+   - Emoji sentiment analysis
+   - TF-IDF features for captions (300 features)
+   - TF-IDF features for hashtags (100 features)
+
+3. **Engagement Features**
+   - Like-to-comment ratios
+   - Historical engagement statistics
+   - Media type performance metrics
+
+4. **Lagged Features**
+   - Previous post performance metrics
+   - Rolling statistics (mean, median, max, min)
+   - Media type-specific statistics
+   - Time-based features (t-1 to t-33 posts)
+
+### Special Handling
+
+1. **Lottery Post Detection**
+   - Identified promotional posts using Turkish keywords
+   - Adjusted engagement metrics for lottery posts
+   - Applied statistical corrections for outlier engagement
+
+2. **Outlier Management**
+   - Implemented IQR-based outlier detection
+   - Applied separate handling for verified accounts
+   - Used dynamic thresholding based on account size
+
+## Model Development
+
+### Data Preprocessing
+1. Applied log transformation to handle skewed distributions
+2. Normalized numerical features using MinMax scaling
+3. Encoded categorical variables
+4. Created train-test split (76%-24%)
+
+### Model Selection
+We evaluated several regression models:
+1. Linear Regression (baseline)
+2. XGBoost
+3. LightGBM
+4. CatBoost
+
+### Final Implementation
+The best performing configuration was:
+- Model: XGBoost Regressor
+- Objective: reg:gamma
+- Parameters:
+  - learning_rate: 0.1
+  - max_depth: 7
+  - n_estimators: 200
+  - subsample: 0.8
+
+### Performance Metrics
+- Train MAE: 2538.01
+- Test MAE: 2769.30
+- Train Log MAE: 0.37
+- Test Log MAE: 0.40
+
+## Key Findings
+
+1. **Feature Importance**
+   - Historical engagement metrics were the strongest predictors
+   - Account-level features showed moderate importance
+   - Temporal features provided incremental improvements
+
+2. **Model Behavior**
+   - Better performance on accounts with consistent engagement
+   - Larger prediction errors for viral posts and outlier engagement
+   - Improved accuracy when considering media type-specific patterns
+
+3. **Limitations**
+   - Higher error rates for celebrity accounts (top 0.1%)
+   - Challenge in predicting viral content
+   - Temporal drift in prediction accuracy
+
+## Implementation Details
+
+The implementation includes:
+- Automated feature generation pipeline
+- Robust error handling for missing data
+- Model persistence for deployment
+- Prediction post-processing for result optimization
+
+
 # Classification
 
 The classification task aims to develop a model that can accurately categorize Instagram accounts into 10 distinct categories: entertainment, food, travel, health and lifestyle, mom and children, fashion, tech, sports, art, and gaming. This model will be trained on a labeled subset of 2,743 accounts and evaluated using accuracy metrics.
